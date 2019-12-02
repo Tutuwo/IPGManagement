@@ -13,7 +13,7 @@ namespace IPGManagement.Models
         {
         }
 
-        public DbSet<IPGManagement.Models.Funcionario> FoodMenu { get; set; }
+        public DbSet<IPGManagement.Models.Funcionario> Funcionarios { get; set; }
         public object Funcionario { get; internal set; }
     }
 }

@@ -27,7 +27,7 @@ namespace IPGManagement.Controllers
             // GET: Funcionarios
             public async Task<IActionResult> Index()
             {
-                return View(await _context.Funcionario.ToListAsync());
+                return View(await _context.Funcionarios.ToListAsync());
             }
 
             // GET: Funcionario/Details/5
@@ -38,8 +38,7 @@ namespace IPGManagement.Controllers
                     return NotFound();
                 }
 
-                var funcionario = await _context.Funcionario
-                    .FirstOrDefaultAsync(m => m.IdFuncionario == id);
+                var funcionario = await _context.Funcionarios.FirstOrDefaultAsync(m => m.IdFuncionarios == id);
                 if (funcionario == null)
                 {
                     return NotFound();
@@ -78,7 +77,7 @@ namespace IPGManagement.Controllers
                     return NotFound();
                 }
 
-                var funcionario = await _context.Funcionario.FindAsync(id);
+                var funcionario = await _context.Funcionarios.FindAsync(id);
                 if (funcionario == null)
                 {
                     return NotFound();
@@ -91,9 +90,9 @@ namespace IPGManagement.Controllers
             // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
             [HttpPost]
             [ValidateAntiForgeryToken]
-            public async Task<IActionResult> Edit(int id, [Bind("IdFuncionario, Nome, DataNascimento, Sexo")] Funcionario funcionario)
+            public async Task<IActionResult> Edit(int id, [Bind("IdFuncionarios, Nome, DataNascimento, Sexo")] Funcionario funcionario)
             {
-                if (id != funcionario.IdFuncionario)
+                if (id != funcionario.IdFuncionarios)
                 {
                     return NotFound();
                 }
@@ -107,7 +106,7 @@ namespace IPGManagement.Controllers
                     }
                     catch (DbUpdateConcurrencyException)
                     {
-                        if (!FuncionarioExists(funcionario.IdFuncionario))
+                        if (!FuncionarioExists(funcionario.IdFuncionarios))
                         {
                             return NotFound();
                         }
@@ -129,7 +128,7 @@ namespace IPGManagement.Controllers
                     return NotFound();
                 }
 
-                var funcionario = await _context.Funcionario
+                var funcionario = await _context.Funcionarios
                     .FirstOrDefaultAsync(m => m.IdFuncionarios == id);
                 if (funcionario == null)
                 {
@@ -144,15 +143,15 @@ namespace IPGManagement.Controllers
             [ValidateAntiForgeryToken]
             public async Task<IActionResult> DeleteConfirmed(int id)
             {
-                var funcionario = await _context.Funcionario.FindAsync(id);
-                _context.Funcionario.Remove(funcionario);
+                var funcionario = await _context.Funcionarios.FindAsync(id);
+                _context.Funcionarios.Remove(funcionario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
             private bool FuncionarioExists(int id)
             {
-                return _context.Funcionario.Any(e => e.IdFuncionarios == id);
+                return _context.Funcionarios.Any(e => e.IdFuncionarios == id);
             }
         }
 }
