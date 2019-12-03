@@ -9,22 +9,22 @@ using IPGManagement.Models;
 
 namespace IPGManagement.Controllers
 {
-    public class FuncionariosController : Controller
+    public class DepartamentosController : Controller
     {
         private readonly IPGManagementDBContext _context;
 
-        public FuncionariosController(IPGManagementDBContext context)
+        public DepartamentosController(IPGManagementDBContext context)
         {
             _context = context;
         }
 
-        // GET: Funcionarios
+        // GET: Departamentos
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Funcionarios.ToListAsync());
+            return View(await _context.Departamentos.ToListAsync());
         }
 
-        // GET: Funcionarios/Details/5
+        // GET: Departamentos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +32,39 @@ namespace IPGManagement.Controllers
                 return NotFound();
             }
 
-            var funcionario = await _context.Funcionarios
-                .FirstOrDefaultAsync(m => m.IdFuncionarios == id);
-            if (funcionario == null)
+            var departamento = await _context.Departamentos
+                .FirstOrDefaultAsync(m => m.IdDepartamento == id);
+            if (departamento == null)
             {
                 return NotFound();
             }
 
-            return View(funcionario);
+            return View(departamento);
         }
 
-        // GET: Funcionarios/Create
+        // GET: Departamentos/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Funcionarios/Create
+        // POST: Departamentos/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdFuncionarios,Nome,DataNascimento,Sexo,IdCargo,IdDepartamento,IdHorario")] Funcionario funcionario)
+        public async Task<IActionResult> Create([Bind("IdDepartamento,NomeDepartamento")] Departamento departamento)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(funcionario);
+                _context.Add(departamento);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(funcionario);
+            return View(departamento);
         }
 
-        // GET: Funcionarios/Edit/5
+        // GET: Departamentos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +72,22 @@ namespace IPGManagement.Controllers
                 return NotFound();
             }
 
-            var funcionario = await _context.Funcionarios.FindAsync(id);
-            if (funcionario == null)
+            var departamento = await _context.Departamentos.FindAsync(id);
+            if (departamento == null)
             {
                 return NotFound();
             }
-            return View(funcionario);
+            return View(departamento);
         }
 
-        // POST: Funcionarios/Edit/5
+        // POST: Departamentos/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdFuncionarios,Nome,DataNascimento,Sexo,IdCargo,IdDepartamento,IdHorario")] Funcionario funcionario)
+        public async Task<IActionResult> Edit(int id, [Bind("IdDepartamento,NomeDepartamento")] Departamento departamento)
         {
-            if (id != funcionario.IdFuncionarios)
+            if (id != departamento.IdDepartamento)
             {
                 return NotFound();
             }
@@ -96,12 +96,12 @@ namespace IPGManagement.Controllers
             {
                 try
                 {
-                    _context.Update(funcionario);
+                    _context.Update(departamento);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!FuncionarioExists(funcionario.IdFuncionarios))
+                    if (!DepartamentoExists(departamento.IdDepartamento))
                     {
                         return NotFound();
                     }
@@ -112,10 +112,10 @@ namespace IPGManagement.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(funcionario);
+            return View(departamento);
         }
 
-        // GET: Funcionarios/Delete/5
+        // GET: Departamentos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,30 +123,30 @@ namespace IPGManagement.Controllers
                 return NotFound();
             }
 
-            var funcionario = await _context.Funcionarios
-                .FirstOrDefaultAsync(m => m.IdFuncionarios == id);
-            if (funcionario == null)
+            var departamento = await _context.Departamentos
+                .FirstOrDefaultAsync(m => m.IdDepartamento == id);
+            if (departamento == null)
             {
                 return NotFound();
             }
 
-            return View(funcionario);
+            return View(departamento);
         }
 
-        // POST: Funcionarios/Delete/5
+        // POST: Departamentos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var funcionario = await _context.Funcionarios.FindAsync(id);
-            _context.Funcionarios.Remove(funcionario);
+            var departamento = await _context.Departamentos.FindAsync(id);
+            _context.Departamentos.Remove(departamento);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool FuncionarioExists(int id)
+        private bool DepartamentoExists(int id)
         {
-            return _context.Funcionarios.Any(e => e.IdFuncionarios == id);
+            return _context.Departamentos.Any(e => e.IdDepartamento == id);
         }
     }
 }

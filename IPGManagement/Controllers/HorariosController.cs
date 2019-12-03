@@ -9,22 +9,22 @@ using IPGManagement.Models;
 
 namespace IPGManagement.Controllers
 {
-    public class FuncionariosController : Controller
+    public class HorariosController : Controller
     {
         private readonly IPGManagementDBContext _context;
 
-        public FuncionariosController(IPGManagementDBContext context)
+        public HorariosController(IPGManagementDBContext context)
         {
             _context = context;
         }
 
-        // GET: Funcionarios
+        // GET: Horarios
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Funcionarios.ToListAsync());
+            return View(await _context.Horarios.ToListAsync());
         }
 
-        // GET: Funcionarios/Details/5
+        // GET: Horarios/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +32,39 @@ namespace IPGManagement.Controllers
                 return NotFound();
             }
 
-            var funcionario = await _context.Funcionarios
-                .FirstOrDefaultAsync(m => m.IdFuncionarios == id);
-            if (funcionario == null)
+            var horario = await _context.Horarios
+                .FirstOrDefaultAsync(m => m.IdHorario == id);
+            if (horario == null)
             {
                 return NotFound();
             }
 
-            return View(funcionario);
+            return View(horario);
         }
 
-        // GET: Funcionarios/Create
+        // GET: Horarios/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Funcionarios/Create
+        // POST: Horarios/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdFuncionarios,Nome,DataNascimento,Sexo,IdCargo,IdDepartamento,IdHorario")] Funcionario funcionario)
+        public async Task<IActionResult> Create([Bind("IdHorario,HInicio,HInicioIntervalo,HFimIntervalo,HFim")] Horario horario)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(funcionario);
+                _context.Add(horario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(funcionario);
+            return View(horario);
         }
 
-        // GET: Funcionarios/Edit/5
+        // GET: Horarios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +72,22 @@ namespace IPGManagement.Controllers
                 return NotFound();
             }
 
-            var funcionario = await _context.Funcionarios.FindAsync(id);
-            if (funcionario == null)
+            var horario = await _context.Horarios.FindAsync(id);
+            if (horario == null)
             {
                 return NotFound();
             }
-            return View(funcionario);
+            return View(horario);
         }
 
-        // POST: Funcionarios/Edit/5
+        // POST: Horarios/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdFuncionarios,Nome,DataNascimento,Sexo,IdCargo,IdDepartamento,IdHorario")] Funcionario funcionario)
+        public async Task<IActionResult> Edit(int id, [Bind("IdHorario,HInicio,HInicioIntervalo,HFimIntervalo,HFim")] Horario horario)
         {
-            if (id != funcionario.IdFuncionarios)
+            if (id != horario.IdHorario)
             {
                 return NotFound();
             }
@@ -96,12 +96,12 @@ namespace IPGManagement.Controllers
             {
                 try
                 {
-                    _context.Update(funcionario);
+                    _context.Update(horario);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!FuncionarioExists(funcionario.IdFuncionarios))
+                    if (!HorarioExists(horario.IdHorario))
                     {
                         return NotFound();
                     }
@@ -112,10 +112,10 @@ namespace IPGManagement.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(funcionario);
+            return View(horario);
         }
 
-        // GET: Funcionarios/Delete/5
+        // GET: Horarios/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,30 +123,30 @@ namespace IPGManagement.Controllers
                 return NotFound();
             }
 
-            var funcionario = await _context.Funcionarios
-                .FirstOrDefaultAsync(m => m.IdFuncionarios == id);
-            if (funcionario == null)
+            var horario = await _context.Horarios
+                .FirstOrDefaultAsync(m => m.IdHorario == id);
+            if (horario == null)
             {
                 return NotFound();
             }
 
-            return View(funcionario);
+            return View(horario);
         }
 
-        // POST: Funcionarios/Delete/5
+        // POST: Horarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var funcionario = await _context.Funcionarios.FindAsync(id);
-            _context.Funcionarios.Remove(funcionario);
+            var horario = await _context.Horarios.FindAsync(id);
+            _context.Horarios.Remove(horario);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool FuncionarioExists(int id)
+        private bool HorarioExists(int id)
         {
-            return _context.Funcionarios.Any(e => e.IdFuncionarios == id);
+            return _context.Horarios.Any(e => e.IdHorario == id);
         }
     }
 }

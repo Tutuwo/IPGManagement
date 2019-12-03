@@ -9,6 +9,7 @@ namespace IPGManagement.Models
     public class Funcionario
     {
         [Required(ErrorMessage = "Por favor, introduza o Id")]
+        [Key]
         public int IdFuncionarios { get; set; }
 
         [Required(ErrorMessage = "Por favor, introduza o nome")]
@@ -21,9 +22,12 @@ namespace IPGManagement.Models
         public String Sexo { get; set; }
 
         public int IdCargo { get; set; }
+        public Cargo Cargo { get; set; }
 
         public int IdDepartamento { get; set; }
+        
 
         public int IdHorario { get; set; }
+
     }
 }
